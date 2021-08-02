@@ -31,13 +31,13 @@ class MassiveObject implements ObjectWithMass, ScreenObject{
     return this.mass;
   }
   
-  // Construct with location as PVector, and mass
+  /** Construct with location as PVector, and mass */
   public MassiveObject(PVector location, int mass){
     this.location = location;
     this.mass = mass;
   }
   
-  // Construct with location as x and y coordinate, and mass
+  /** Construct with location as x and y coordinate, and mass */
   public MassiveObject(int x, int y, int mass){
     this(new PVector(x, y), mass);
   }
@@ -46,16 +46,18 @@ class MassiveObject implements ObjectWithMass, ScreenObject{
   public void attract(Particle p){
     PVector dif = PVector.sub(this.location, p.location);
     float distance = dif.mag();
-    distance = constrain(distance, GRAV_DIST_LOWER_LIMIT, GRAV_DIST_UPPER_LIMIT);
-    float strength = (MassiveObject.G * this.mass * p.getMass()) / (distance * distance);
-    
-    dif.normalize();
-    dif.mult(strength);
-    
-    p.addForce(dif);
+    if(abs(distance) > 1){ // Gravity will not be applied when at or near the origin
+      distance = constrain(distance, GRAV_DIST_LOWER_LIMIT, GRAV_DIST_UPPER_LIMIT);
+      float strength = (MassiveObject.G * this.mass * p.getMass()) / (distance * distance);
+      
+      dif.normalize();
+      dif.mult(strength);
+      
+      p.addForce(dif);
+    }
   }
   
-  // Display the object on screen
+  /** Display the object on screen */
   public void onScreen(){
     noStroke();
     fill(254, 0, 0);
@@ -133,7 +135,7 @@ class Particle implements ObjectWithMass, ScreenObject{
   /* Apply a drag force to the particle */
   public void drag(){
     float speed = this.velocity.mag();
-    PVector direction = this.velocity.get();
+    PVector direction = this.velocity.copy();
     direction.normalize();
     direction.mult(-1);
     direction.normalize();
