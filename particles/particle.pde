@@ -62,7 +62,7 @@ class MassiveObject implements ObjectWithMass, ScreenObject{
     noStroke();
     fill(254, 0, 0);
     ellipseMode(RADIUS); // Consider moving to setup()
-    ellipse(this.location.x, this.location.y, 5, 5);
+    ellipse(this.location.x, this.location.y, 20, 20);
   }
 }
 
@@ -129,7 +129,7 @@ class Particle implements ObjectWithMass, ScreenObject{
     noStroke();
     fill(254, 245, 218);
     ellipseMode(RADIUS); // Consider moving to setup()
-    ellipse(this.location.x, this.location.y, 10, 10);
+    ellipse(this.location.x, this.location.y, 5, 5);
   }
   
   /* Apply a drag force to the particle */
