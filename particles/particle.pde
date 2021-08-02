@@ -10,11 +10,37 @@ interface ObjectWithMass{
 }
 
 
-/** An object around which particles orbit */
+/** An object around which particles orbit
+It has mass to compute gravitational attraction with, but is immovable*/
 class MassiveObject implements ObjectWithMass{
-  int mass;
+  private PVector location;
+  private int mass;
+  
+  private static final float G = 1;
+  
   public int getMass(){
     return this.mass;
+  }
+  
+  public MassiveObject(PVector location, int mass){
+    this.location = location;
+    this.mass = mass;
+  }
+  
+  public MassiveObject(int x, int y, int mass){
+    this(new PVector(x, y), mass);
+  }
+  
+  /** Compute gravitational attraction towards a certain particle, and apply it to that particle */
+  public void attract(Particle p){
+    PVector dif = PVector.sub(p.location, this.location);
+    float distance = dif.mag();
+    float strength = (this.G * this.mass * p.getMass()) / (distance * distance);
+    
+    dif.normalize();
+    dif.mult(strength);
+    
+    p.addForce(dif);
   }
 }
 
