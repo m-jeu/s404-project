@@ -9,6 +9,11 @@ interface ObjectWithMass{
   public int getMass();
 }
 
+/** An object that can be drawn on the screen */
+interface ScreenObject{
+  public void onScreen();
+}
+
 
 /** An object around which particles orbit
 It has mass to compute gravitational attraction with, but is immovable*/
