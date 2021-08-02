@@ -14,6 +14,7 @@ void draw(){
   background(0, 0, 0);
   
   m.attract(p);
+  p.drag();
   p.update();
   p.onScreen();
   m.onScreen();

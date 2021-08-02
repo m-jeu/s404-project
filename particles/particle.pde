@@ -80,6 +80,9 @@ class Particle implements ObjectWithMass, ScreenObject{
   private int mass = 1;
   public int getMass(){return this.mass;}
   
+  /** All drag constants, combined into 1 */
+  private static final float DRAG_CONSTANT = 0.001;
+  
   /** Construct with initial location */
   public Particle(PVector location){
     this.location = location;
@@ -120,10 +123,21 @@ class Particle implements ObjectWithMass, ScreenObject{
   }
   
   /** Display the particle on screen */
-  void onScreen(){
+  public void onScreen(){
     noStroke();
     fill(254, 245, 218);
     ellipseMode(RADIUS); // Consider moving to setup()
     ellipse(this.location.x, this.location.y, 10, 10);
+  }
+  
+  /* Apply a drag force to the particle */
+  public void drag(){
+    float speed = this.velocity.mag();
+    PVector direction = this.velocity.get();
+    direction.normalize();
+    direction.mult(-1);
+    direction.normalize();
+    direction.mult((Particle.DRAG_CONSTANT * speed * speed));
+    this.addForce(direction);
   }
 }
