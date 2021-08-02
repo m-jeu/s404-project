@@ -47,7 +47,7 @@ class MassiveObject implements ObjectWithMass, ScreenObject{
     PVector dif = PVector.sub(this.location, p.location);
     float distance = dif.mag();
     distance = constrain(distance, GRAV_DIST_LOWER_LIMIT, GRAV_DIST_UPPER_LIMIT);
-    float strength = (this.G * this.mass * p.getMass()) / (distance * distance);
+    float strength = (MassiveObject.G * this.mass * p.getMass()) / (distance * distance);
     
     dif.normalize();
     dif.mult(strength);
