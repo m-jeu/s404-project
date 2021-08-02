@@ -10,6 +10,15 @@ interface ObjectWithMass{
 }
 
 
+/** An object around which particles orbit */
+class MassiveObject implements ObjectWithMass{
+  int mass;
+  public int getMass(){
+    return this.mass;
+  }
+}
+
+
 /**
 A Particle in the particle system
 */
@@ -53,6 +62,7 @@ class Particle implements ObjectWithMass{
         acceleration.add(a);
       }
       this.velocity.add(acceleration);
+      this.forceBacklog = new ArrayList<PVector>();
     }
     this.location.add(this.velocity);
   }
