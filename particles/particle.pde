@@ -11,6 +11,8 @@ interface ObjectWithMass{
 
 /** An object that can be drawn on the screen */
 interface ScreenObject{
+  
+  /** Draw the object on the screen */
   public void onScreen();
 }
 
@@ -18,22 +20,24 @@ interface ScreenObject{
 /** An object around which particles orbit
 It has mass to compute gravitational attraction with, but is immovable*/
 class MassiveObject implements ObjectWithMass, ScreenObject{
-  private PVector location;
+  private PVector location; // TODO(m-jeu) consider combining in one baseclass with particle
   private int mass;
   
-  private static final float G = 1;
-  private static final float GRAV_DIST_LOWER_LIMIT = 20.0;
-  private static final float GRAV_DIST_UPPER_LIMIT = 100.0;
+  private static final float G = 1; // Universal gravitation constant (times 1/2)
+  private static final float GRAV_DIST_LOWER_LIMIT = 20.0; // The lower limit distance will be constrained to for the purpose of attraction, to erratic behaviour
+  private static final float GRAV_DIST_UPPER_LIMIT = 100.0; // ^  upper ^
   
   public int getMass(){
     return this.mass;
   }
   
+  // Construct with location as PVector, and mass
   public MassiveObject(PVector location, int mass){
     this.location = location;
     this.mass = mass;
   }
   
+  // Construct with location as x and y coordinate, and mass
   public MassiveObject(int x, int y, int mass){
     this(new PVector(x, y), mass);
   }
@@ -51,6 +55,7 @@ class MassiveObject implements ObjectWithMass, ScreenObject{
     p.addForce(dif);
   }
   
+  // Display the object on screen
   public void onScreen(){
     noStroke();
     fill(254, 0, 0);
