@@ -17,7 +17,7 @@ interface ScreenObject{
 
 /** An object around which particles orbit
 It has mass to compute gravitational attraction with, but is immovable*/
-class MassiveObject implements ObjectWithMass{
+class MassiveObject implements ObjectWithMass, ScreenObject{
   private PVector location;
   private int mass;
   
@@ -47,13 +47,20 @@ class MassiveObject implements ObjectWithMass{
     
     p.addForce(dif);
   }
+  
+  public void onScreen(){
+    noStroke();
+    fill(254, 0, 0);
+    ellipseMode(RADIUS); // Consider moving to setup()
+    ellipse(this.location.x, this.location.y, 20, 20);
+  }
 }
 
 
 /**
 A Particle in the particle system
 */
-class Particle implements ObjectWithMass{
+class Particle implements ObjectWithMass, ScreenObject{
   private PVector location; /** Location as vector */
   private PVector velocity = new PVector(0, 0); /** Velocity as vector */
   
