@@ -22,7 +22,7 @@ class MassiveObject implements ObjectWithMass, ScreenObject{
   private int mass;
   
   private static final float G = 1;
-  private static final float GRAV_DIST_LOWER_LIMIT = 10.0;
+  private static final float GRAV_DIST_LOWER_LIMIT = 20.0;
   private static final float GRAV_DIST_UPPER_LIMIT = 100.0;
   
   public int getMass(){
@@ -55,7 +55,7 @@ class MassiveObject implements ObjectWithMass, ScreenObject{
     noStroke();
     fill(254, 0, 0);
     ellipseMode(RADIUS); // Consider moving to setup()
-    ellipse(this.location.x, this.location.y, 20, 20);
+    ellipse(this.location.x, this.location.y, 5, 5);
   }
 }
 
