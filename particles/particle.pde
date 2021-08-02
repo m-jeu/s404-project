@@ -90,6 +90,12 @@ class Particle implements ObjectWithMass, ScreenObject{
     this.location = new PVector(x, y);
   }
   
+  /** Construct with location as x and y value, and velocity as horizontal and vertical velocity values */
+  public Particle(int x, int y, int x_speed, int y_speed){
+    this(x, y);
+    this.velocity = new PVector(x_speed, y_speed);
+  }
+  
   /** Add a force to the force backlog to compute acceleration */
   public void addForce(PVector force){
     forceBacklog.add(force);
