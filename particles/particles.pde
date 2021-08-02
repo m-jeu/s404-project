@@ -1,17 +1,19 @@
 Particle p;
-PVector gravity;
+MassiveObject m;
+
 
 void setup(){
   size(1920, 1080);
   
   p = new Particle(width / 2, height / 2);
-  gravity = new PVector(0, 0.02);
+  m = new MassiveObject(width / 2, height / 2 - 100, 100);
 }
 
 void draw(){
   background(0, 0, 0);
   
-  p.addForce(gravity);
+  m.attract(p);
   p.update();
   p.onScreen();
+  m.onScreen();
 }

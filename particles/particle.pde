@@ -22,6 +22,8 @@ class MassiveObject implements ObjectWithMass, ScreenObject{
   private int mass;
   
   private static final float G = 1;
+  private static final float GRAV_DIST_LOWER_LIMIT = 10.0;
+  private static final float GRAV_DIST_UPPER_LIMIT = 100.0;
   
   public int getMass(){
     return this.mass;
@@ -38,8 +40,9 @@ class MassiveObject implements ObjectWithMass, ScreenObject{
   
   /** Compute gravitational attraction towards a certain particle, and apply it to that particle */
   public void attract(Particle p){
-    PVector dif = PVector.sub(p.location, this.location);
+    PVector dif = PVector.sub(this.location, p.location);
     float distance = dif.mag();
+    distance = constrain(distance, GRAV_DIST_LOWER_LIMIT, GRAV_DIST_UPPER_LIMIT);
     float strength = (this.G * this.mass * p.getMass()) / (distance * distance);
     
     dif.normalize();
