@@ -3,10 +3,17 @@
 
 import java.util.ArrayList;
 
+
+/** An object with mass */
+interface ObjectWithMass{
+  public int getMass();
+}
+
+
 /**
 A Particle in the particle system
 */
-class Particle{
+class Particle implements ObjectWithMass{
   private PVector location; /** Location as vector */
   private PVector velocity = new PVector(0, 0); /** Velocity as vector */
   
@@ -16,6 +23,7 @@ class Particle{
   
   /** The particles mass */
   private int mass = 1;
+  public int getMass(){return this.mass;}
   
   /** Construct with initial location */
   public Particle(PVector location){
