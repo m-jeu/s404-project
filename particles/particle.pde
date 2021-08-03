@@ -2,6 +2,7 @@
 
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 /** An object with mass */
@@ -24,8 +25,8 @@ class MassiveObject implements ObjectWithMass, ScreenObject{
   private int mass;
   
   private static final float G = 1; // Universal gravitation constant (times 1/2)
-  private static final float GRAV_DIST_LOWER_LIMIT = 20.0; // The lower limit distance will be constrained to for the purpose of attraction, to erratic behaviour
-  private static final float GRAV_DIST_UPPER_LIMIT = 100.0; // ^  upper ^
+  private static final float GRAV_DIST_LOWER_LIMIT = 30.0; // The lower limit distance will be constrained to for the purpose of attraction, to erratic behaviour
+  private static final float GRAV_DIST_UPPER_LIMIT = 200.0; // ^  upper ^
   
   public int getMass(){
     return this.mass;
@@ -46,15 +47,13 @@ class MassiveObject implements ObjectWithMass, ScreenObject{
   public void attract(Particle p){
     PVector dif = PVector.sub(this.location, p.location);
     float distance = dif.mag();
-    if(abs(distance) > 1){ // Gravity will not be applied when at or near the origin
-      distance = constrain(distance, GRAV_DIST_LOWER_LIMIT, GRAV_DIST_UPPER_LIMIT);
-      float strength = (MassiveObject.G * this.mass * p.getMass()) / (distance * distance);
-      
-      dif.normalize();
-      dif.mult(strength);
-      
-      p.addForce(dif);
-    }
+    distance = constrain(distance, GRAV_DIST_LOWER_LIMIT, GRAV_DIST_UPPER_LIMIT);
+    float strength = (MassiveObject.G * this.mass * p.getMass()) / (distance * distance);
+    
+    dif.normalize();
+    dif.mult(strength);
+    
+    p.addForce(dif);
   }
   
   /** Display the object on screen */
@@ -62,7 +61,7 @@ class MassiveObject implements ObjectWithMass, ScreenObject{
     noStroke();
     fill(254, 0, 0);
     ellipseMode(RADIUS); // Consider moving to setup()
-    ellipse(this.location.x, this.location.y, 20, 20);
+    ellipse(this.location.x, this.location.y, 10, 10);
   }
 }
 
@@ -88,6 +87,12 @@ class Particle implements ObjectWithMass, ScreenObject{
   /** Construct with initial location */
   public Particle(PVector location){
     this.location = location;
+  }
+  
+  /** Construct with initial location and initial speed as PVectors */
+  public Particle(PVector location, PVector velocity){
+    this(location);
+    this.velocity = velocity;
   }
   
   /** Construct with x and y value */
@@ -132,14 +137,36 @@ class Particle implements ObjectWithMass, ScreenObject{
     ellipse(this.location.x, this.location.y, 5, 5);
   }
   
-  /* Apply a drag force to the particle */
+  /** Apply a drag force to the particle */
   public void drag(){
     float speed = this.velocity.mag();
     PVector direction = this.velocity.copy();
     direction.normalize();
     direction.mult(-1);
-    direction.normalize();
+    direction.normalize(); // FIXME(m-jeu): ???
     direction.mult((Particle.DRAG_CONSTANT * speed * speed));
     this.addForce(direction);
   }
+}
+
+/** Spawn a certain amount of particle instances, at a certain speed, appearing to fly into the screen.
+
+Particles spawn at upper or left of screen, but that doesn't matter because of wraparound.
+
+Should be a static method for the Particle class, but Processing doesn't allow this. Therefore, it's a sketch-level function 
+Whole function is quite inefficient because of this limitation, but that doesn't really matter because it's only used at startup.
+*/
+ArrayList<Particle> spawnParticles(int amount, float speed_sdev){
+  Random randomGenerator = new Random(); // Quite dumb to make a new random generator for every func call, but this is preferable to using globals.
+  ArrayList<Particle> result = new ArrayList<Particle>();
+  float edgePixels = width + height;
+  for(int i = 0; i < amount; i++){
+    int start_pixel = int(random(edgePixels));
+    // float x_speed = (((float)randomGenerator.nextGaussian()) * speed_sdev); // FIXME(m-jeu): One set of wrapping parentheses can be removed.
+    // float y_speed = (((float)randomGenerator.nextGaussian()) * speed_sdev);
+    PVector start_location = start_pixel > height ? new PVector(start_pixel - height, 0) : new PVector(0, start_pixel); // Start at top or left?
+    PVector speed = new PVector(((float)randomGenerator.nextGaussian()) * speed_sdev, ((float)randomGenerator.nextGaussian()) * speed_sdev); // Random V on x and y axis.
+    result.add(new Particle(start_location, speed));
+  }
+  return result;
 }

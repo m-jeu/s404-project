@@ -9,12 +9,9 @@ void setup(){
   size(1920, 1080);
   frameRate(30);
   
-  particles = new ArrayList<Particle>();
   mobjects = new ArrayList<MassiveObject>();
   
-  for(int i = 0; i < 100; i++){
-    particles.add(new Particle(width / 2 + (i * 5), height / 2));
-  }
+  particles = spawn_particles(100, 5);
 }
 
 void draw(){
@@ -35,5 +32,5 @@ void draw(){
 }
 
 void mousePressed(){
-  mobjects.add(new MassiveObject(mouseX, mouseY, 1000));
+  mobjects.add(new MassiveObject(mouseX, mouseY, 800));
 }
