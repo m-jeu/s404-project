@@ -129,6 +129,21 @@ class Particle implements ObjectWithMass, ScreenObject{
     this.location.add(this.velocity);
   }
   
+  /** Check wether particle wraps around, and teleport it if it does */
+  public void wrapAround(){
+    if(this.location.x > width){ // Check X wraparound
+      this.location.x = 0;
+    } else if(this.location.x < 0){
+      this.location.x = width;
+    }
+    
+    if(this.location.y > height){
+      this.location.y = 0;
+    } else if(this.location.y < 0){
+      this.location.y = height;
+    }
+  }
+  
   /** Display the particle on screen */
   public void onScreen(){
     noStroke();

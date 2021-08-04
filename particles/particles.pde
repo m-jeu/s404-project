@@ -11,7 +11,7 @@ void setup(){
   
   mobjects = new ArrayList<MassiveObject>();
   
-  particles = spawn_particles(100, 5);
+  particles = spawnParticles(100, 20);
 }
 
 void draw(){
@@ -24,6 +24,7 @@ void draw(){
   for(Particle p: particles){
     p.drag();
     p.update();
+    p.wrapAround();
     p.onScreen();
   }
   for(MassiveObject m: mobjects){
