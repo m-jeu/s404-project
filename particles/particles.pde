@@ -9,12 +9,16 @@ void setup(){
   size(1920, 1080);
   frameRate(30);
   
-  CharacterRepresentation
+  CharacterRepresentation.initCoordinates();
   
   mobjects = new ArrayList<MassiveObject>();
-  ArrayList<PVector> mCoords = CharacterRepresentation.getRepr(Character.valueOf('S'), new PVector(width / 2, height / 2));
-  for(PVector coord: mCoords){
+  ArrayList<PVector> sCoords = CharacterRepresentation.getRepr(Character.valueOf('S'), new PVector(width / 2 + 200, height / 2));
+  ArrayList<PVector> dCoords = CharacterRepresentation.getRepr(Character.valueOf('d'), new PVector(width / 2 - 200, height / 2));
+  for(PVector coord: sCoords){
     mobjects.add(new MassiveObject(coord, 800));
+  }
+    for(PVector coord: dCoords){
+    mobjects.add(new MassiveObject(coord, 1200));
   }
   
   particles = spawnParticles(100, 20);
@@ -32,7 +36,7 @@ void draw(){
     p.update();
     p.wrapAround();
     p.onScreen();
-    p.visualizeCloseParticles(particles, 60);
+    p.visualizeCloseParticles(particles, 110);
   }
   for(MassiveObject m: mobjects){
     m.onScreen();
