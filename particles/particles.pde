@@ -4,10 +4,14 @@ import java.util.ArrayList;
 ArrayList<Particle> particles;
 ArrayList<MassiveObject> mobjects;
 
+PImage backGround;
+
 
 void setup(){
   size(1920, 1080);
   frameRate(30);
+  
+  backGround = loadImage("background.jpg");
   
   CharacterRepresentation.initCoordinates();
   
@@ -25,7 +29,8 @@ void setup(){
 }
 
 void draw(){
-  background(0, 0, 0);
+  //background(0, 0, 0);
+  background(backGround);
   for(MassiveObject m: mobjects){
     for(Particle p: particles){
       m.attract(p);
