@@ -177,7 +177,7 @@ class Particle implements ObjectWithMass, ScreenObject{
       float distance = dif.mag();
       if(distance < lightupDistance){ // Light up path towards nearby particle
       // Line parameters
-        stroke(255, 255, 0, 255);
+        stroke(0, 255, 255, 40);
         strokeWeight(3);
         line(targetLocation.x, targetLocation.y, this.location.x, this.location.y);
       }
