@@ -41,7 +41,7 @@ void draw(){
     p.update();
     p.wrapAround();
     p.onScreen();
-    p.visualizeCloseParticles(particles, 110);
+    p.visualizeCloseParticles(particles, 110, true);
   }
   for(MassiveObject m: mobjects){
     m.onScreen();

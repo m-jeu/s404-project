@@ -28,9 +28,9 @@ static class CharacterRepresentation { // FIXME(m-jeu): Consider making non-stat
     
     //delta
     ArrayList<PVector> dValue = new ArrayList<PVector>();
-    dValue.add(new PVector(0, -60));
-    dValue.add(new PVector(42.42, 42.42));
-    dValue.add(new PVector(-42.42, 42.42));
+    dValue.add(new PVector(0, -120));
+    dValue.add(new PVector(84.85, 84.85));
+    dValue.add(new PVector(-84.85, 84.85));
     
     CharacterRepresentation.coordinates.put(Character.valueOf('d'), dValue);
   }
