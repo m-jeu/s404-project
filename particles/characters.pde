@@ -16,15 +16,23 @@ static class CharacterRepresentation { // FIXME(m-jeu): Consider making non-stat
     ArrayList<PVector> sValue = new ArrayList<PVector>();
     sValue.add(new PVector(0, 0));
     
-    sValue.add(new PVector(-30, -50));
-    sValue.add(new PVector(0, -70));
-    sValue.add(new PVector(40, -50));
+    sValue.add(new PVector(-60, -100));
+    sValue.add(new PVector(0, -140));
+    sValue.add(new PVector(100, -100));
     
-    sValue.add(new PVector(30, 50));
-    sValue.add(new PVector(0, 70));
-    sValue.add(new PVector(-40, 50));
+    sValue.add(new PVector(60, 100));
+    sValue.add(new PVector(0, 140));
+    sValue.add(new PVector(-100, 100));
     
     CharacterRepresentation.coordinates.put(Character.valueOf('S'), sValue);
+    
+    //delta
+    ArrayList<PVector> dValue = new ArrayList<PVector>();
+    dValue.add(new PVector(0, -60));
+    dValue.add(new PVector(42.42, 42.42));
+    dValue.add(new PVector(-42.42, 42.42));
+    
+    CharacterRepresentation.coordinates.put(Character.valueOf('d'), dValue);
   }
   
   /** Get the coordinates of the representation of a certain character */
