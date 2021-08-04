@@ -47,7 +47,3 @@ void draw(){
     m.onScreen();
   }
 }
-
-void mousePressed(){
-  mobjects.add(new MassiveObject(mouseX, mouseY, 800));
-}
