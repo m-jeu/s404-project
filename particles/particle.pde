@@ -178,7 +178,7 @@ class Particle implements ObjectWithMass, ScreenObject{
       PVector dif = PVector.sub(targetLocation, this.location);
       float distance = dif.mag();
       
-      // Seperate var because of nasty pass-by-reference bug. FIXME(m-jeu): this.
+      // Seperate var because of nasty pass-by-reference bug. FIXME(m-jeu): this is extremely dumb.
       float lightupIf = favorLeft && (this.location.x < width / 2) && p.getLocation().x < width / 2 ? lightupDistance * 2 : lightupDistance;
       if(distance < lightupIf){ // Light up path towards nearby particle
       // Line parameters
