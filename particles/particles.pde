@@ -26,6 +26,7 @@ void draw(){
     p.update();
     p.wrapAround();
     p.onScreen();
+    p.visualizeCloseParticles(particles, 30);
   }
   for(MassiveObject m: mobjects){
     m.onScreen();

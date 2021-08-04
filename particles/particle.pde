@@ -79,7 +79,9 @@ class Particle implements ObjectWithMass, ScreenObject{
   
   /** The particles mass */
   private int mass = 1;
+  
   public int getMass(){return this.mass;}
+  public PVector getLocation(){return this.location;}
   
   /** All drag constants, combined into 1 */
   private static final float DRAG_CONSTANT = 0.001;
@@ -161,6 +163,23 @@ class Particle implements ObjectWithMass, ScreenObject{
     direction.normalize(); // FIXME(m-jeu): ???
     direction.mult((Particle.DRAG_CONSTANT * speed * speed));
     this.addForce(direction);
+  }
+  
+  /** Light up some connections to other particles that are nearby 
+  
+  O(N^2) if called on every particle, so be careful!*/
+  public void visualizeCloseParticles(ArrayList<Particle> toCheck, float lightupDistance){
+    for(Particle p: toCheck){
+      PVector targetLocation = p.getLocation();
+      PVector dif = PVector.sub(targetLocation, this.location);
+      float distance = dif.mag();
+      if(distance < lightupDistance){ // Light up path towards nearby particle
+      // Line parameters
+        stroke(255, 255, 0);
+        strokeWeight(3);
+        line(targetLocation.x, targetLocation.y, this.location.x, this.location.y);
+      }
+    }
   }
 }
 
