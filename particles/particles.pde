@@ -25,7 +25,7 @@ void setup(){
     mobjects.add(new MassiveObject(coord, 1200));
   }
   
-  particles = spawnParticles(100, 20);
+  particles = spawnParticles(150, 20);
 }
 
 void draw(){
