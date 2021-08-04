@@ -82,6 +82,9 @@ class Particle implements ObjectWithMass, ScreenObject{
   /** The particles mass */
   private int mass = 1;
   
+  /** Particle color */
+  private color currentColor = color(255, 253, 208);
+  
   public int getMass(){return this.mass;}
   public PVector getLocation(){return this.location;}
   
@@ -151,10 +154,11 @@ class Particle implements ObjectWithMass, ScreenObject{
   /** Display the particle on screen */
   public void onScreen(){
     noStroke();
-    fill(254, 245, 218);
+    fill(this.currentColor);
     ellipseMode(RADIUS); // Consider moving to setup()
     ellipse(this.location.x, this.location.y, 5, 5);
   }
+
   
   /** Apply a drag force to the particle */
   public void drag(){
@@ -171,7 +175,7 @@ class Particle implements ObjectWithMass, ScreenObject{
   
   O(N^2) if called on every particle, so be careful!
   
-  favorLeft is extremely dumb fix to double lightupDistance for particles on the left side of the screen.*/
+  favorLeft is extremely dumb fix to double lightupDistance for particles on the left side of the screen*/
   public void visualizeCloseParticles(ArrayList<Particle> toCheck, float lightupDistance, boolean favorLeft){
     for(Particle p: toCheck){
       PVector targetLocation = p.getLocation();
