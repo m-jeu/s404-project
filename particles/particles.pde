@@ -1,3 +1,5 @@
+import com.hamoid.*;
+
 import java.util.ArrayList;
 
 
@@ -6,12 +8,23 @@ ArrayList<MassiveObject> mobjects;
 
 PImage backGround;
 
+VideoExport videoExport;
+
 
 void setup(){
+  // Screen setup
   size(1920, 1080);
   frameRate(30);
   
   backGround = loadImage("background.jpg");
+  
+  // Video export setup
+  
+  videoExport = new VideoExport(this, "MaartenDeJeu.mp4");
+  videoExport.setFrameRate(30);
+  videoExport.startMovie();
+  
+  // Object setup
   
   CharacterRepresentation.initCoordinates();
   
@@ -45,5 +58,17 @@ void draw(){
   }
   for(MassiveObject m: mobjects){
     m.onScreen();
+  }
+  
+  // Video export
+  videoExport.saveFrame();
+}
+
+
+// Video shutdown
+void keyPressed(){
+  if(key == 'q'){
+    videoExport.endMovie();
+    exit();
   }
 }
